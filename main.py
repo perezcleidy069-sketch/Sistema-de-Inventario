@@ -1,3 +1,9 @@
+from inventory import*
+
+def escribir_archivo(inventory):
+    with open("inventory.py", "a") as archivo:
+        archivo.write(inventory+"\n")
+
 def ask_option():
 
     opc=int(input("Ingrese la opcion deseada: "))
@@ -6,7 +12,7 @@ def ask_option():
 
 def separator():
 
-    print("* * 20")
+    print("=*20")
 
 def show_menu():
     separator()
@@ -22,9 +28,29 @@ def show_menu():
     print(MENU)
     separator()
 
+def verificar_existencia(productos, nombre_producto):
+    for i in productos:
+        nombre= i["nombre"]
+        if nombre.lower()== nombre_producto.lower():
+            return True
+    return False
 
 def add_product():
-    pass
+    nombre=input("Ingrese el nombre del producto: ")
+    if verificar_existencia(productos, nombre):
+        print("Producto ya existe")
+    else:
+        cantidad= int(input("Ingrese la cantidad del producto: "))
+        precio=float(input("Ingrese el precio del producto: "))
+        producto= {
+            "nombre": nombre,
+            "cantidad": cantidad,
+            "precio": precio
+        }
+        productos.apped(producto)
+        escribir_archivo()
+        
+
 
 def show_product():
     pass
@@ -58,4 +84,5 @@ while True:
     elif opc== 6:
         print("Adios, fue un gusto para nosotros que usted nos prefiriera :)")
     else:
-        print("Ingresó la opcion incorrecta")    
+        print("Ingresó la opcion incorrecta")  
+    break
