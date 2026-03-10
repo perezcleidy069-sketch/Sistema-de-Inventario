@@ -78,8 +78,22 @@ def update_product():
     else:
         print("Producto no existe")
 
+def mostrar_opciones(productos):
+    print("Ingrese el número de producto: ")
+    cantidad=len(productos)
+    for i in range(0, cantidad):
+        print(i, "-", productos[i] ["nombre"])
+    numero_producto=int(input("Ingrese su seleccion: "))
+    if (numero_producto < 0 or numero_producto >= cantidad):
+        print("Opción no vàlida")
+        numero_producto=-1
+    separator()
+    return numero_producto
+
 def delete_product():
-    pass
+    indice = mostrar_opciones(productos)
+    if indice != -1:
+        productos.pop(indice)
 
 def calculate_inventary():
     pass
