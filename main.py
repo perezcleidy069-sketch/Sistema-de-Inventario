@@ -96,7 +96,15 @@ def delete_product():
         productos.pop(indice)
 
 def calculate_inventary():
-    pass
+    inventario= 0
+    for i in range(len(productos)):
+        producto=productos[i]
+
+        multiplicacion=producto["precio"]* producto["cantidad"]
+
+        total += multiplicacion
+
+    return total 
 
 while True:
     show_menu()
