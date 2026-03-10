@@ -1,8 +1,4 @@
-from inventory import*
-
-def escribir_archivo(inventory):
-    with open("inventory.py", "a") as archivo:
-        archivo.write(inventory+"\n")
+from inventory import productos
 
 def ask_option():
 
@@ -12,7 +8,7 @@ def ask_option():
 
 def separator():
 
-    print("=*20")
+    print("***********************************")
 
 def show_menu():
     separator()
@@ -30,8 +26,7 @@ def show_menu():
 
 def verificar_existencia(productos, nombre_producto):
     for i in productos:
-        nombre= i["nombre"]
-        if nombre.lower()== nombre_producto.lower():
+        if i ['nombre'].lower()== nombre_producto.lower():
             return True
     return False
 
@@ -39,24 +34,49 @@ def add_product():
     nombre=input("Ingrese el nombre del producto: ")
     if verificar_existencia(productos, nombre):
         print("Producto ya existe")
-    else:
+            
+    else: 
         cantidad= int(input("Ingrese la cantidad del producto: "))
-        precio=float(input("Ingrese el precio del producto: "))
+        precio=int(input("Ingrese el precio del producto: "))
         producto= {
-            "nombre": nombre,
-            "cantidad": cantidad,
-            "precio": precio
-        }
-        productos.apped(producto)
-        escribir_archivo()
+                "nombre": nombre,
+                "cantidad": cantidad,
+                "precio": precio
+            }
+        productos.append(producto)
         
 
 
 def show_product():
-    pass
+    for producto in productos:
+        print("nombre: "+producto["nombre"]+ "| precio: "+str(producto["precio"])+ "| cantidad: "+ str(producto["cantidad"]))
 
+def obtner_indice(productos, nombre_producto):
+    cantidad=len(productos)
+    for i in range(0, cantidad):
+        nombre=productos[i] ["nombre"]
+        if nombre.lower()== nombre_producto.lower():
+            return i
+        return -1
+    
 def update_product():
-    pass
+    nombre=input ("Ingrese el nombre del producto a actualizar: ")
+    if verificar_existencia(productos, nombre):
+        opcion = int(input("1. Para agregar cantidades\n 2. Para quitar cantidad\n Ingrese su opción: "))
+        if opcion == 1 or opcion == 2:
+            indice= obtner_indice(productos, nombre)
+            nueva_cantidad=int(input("INgrese la cantidad: "))
+            if opcion == 1 and nueva_cantidad > 0:
+                productos[indice]["cantidad"]+=nueva_cantidad
+                productos.append()
+            elif opcion==2 and nueva_cantidad> 0:
+                productos[indice]["cantidad"]-=nueva_cantidad
+            else:
+                print("La cantidad debe ser positiva")
+        else:
+            print("Opción no valida")
+    else:
+        print("Producto no existe")
 
 def delete_product():
     pass
@@ -85,4 +105,4 @@ while True:
         print("Adios, fue un gusto para nosotros que usted nos prefiriera :)")
     else:
         print("Ingresó la opcion incorrecta")  
-    break
+    
